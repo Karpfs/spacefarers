@@ -2,6 +2,7 @@
   "name": "spacefarers",
   "version": "1.0.0",
   "devDependencies": {
+    "@cap-js/cds-test": "^1.0.2",
     "@cap-js/sqlite": "^3.1.1",
     "@sap/cds-dk": "^10.1.0",
     "cds-plugin-ui5": "^0.17.0"
@@ -35,6 +36,8 @@
     "app/*"
   ],
   "scripts": {
+    "start": "cds-serve",
+    "test": "cds test",
     "watch-spacefarers": "cds watch --open galactic.spacefarers/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "sapux": [
