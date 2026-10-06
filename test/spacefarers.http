@@ -1,0 +1,13 @@
+### 1. Create a draft
+POST http://localhost:4004/odata/v4/spacefarer/Spacefarers
+Authorization: Basic alice:alice
+Content-Type: application/json
+
+{ "name": "Nova Stark", "email": "nova@example.com", "stardustCollection": 50, "wormholeNavigationSkill": 5 }
+
+### 2. Activate the draft (copy the ID from the previous response)
+POST http://localhost:4004/odata/v4/spacefarer/Spacefarers(ID=$ID,IsActiveEntity=false)/SpacefarerService.draftActivate
+Authorization: Basic alice:alice
+Content-Type: application/json
+
+{}

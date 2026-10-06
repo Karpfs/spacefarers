@@ -25,5 +25,8 @@
         }
       }
     }
+  },
+  "dependencies": {
+    "nodemailer": "^10.0.15"
   }
 }
