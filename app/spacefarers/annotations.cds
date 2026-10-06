@@ -8,6 +8,7 @@ annotate service.Spacefarers with {
     wormholeNavigationSkill @title: 'Wormhole Navigation Skill';
     originPlanet            @title: 'Origin Planet';
     spacesuitColor          @title: 'Spacesuit Color';
+    stardustCriticality     @UI.Hidden;
 };
 
 annotate service.Spacefarers with @(
@@ -22,16 +23,23 @@ annotate service.Spacefarers with @(
     // Filter bar
     UI.SelectionFields   : [
         spacesuitColor,
-        stardustCollection
+        stardustCollection,
+        department_ID
     ],
 
     // List report columns
     UI.LineItem          : [
         {Value: name},
-        {Value: stardustCollection},
+        {
+            Value                    : stardustCollection,
+            Criticality              : stardustCriticality,
+            CriticalityRepresentation: #WithoutIcon
+        },
         {Value: spacesuitColor},
         {Value: wormholeNavigationSkill},
-        {Value: originPlanet}
+        {Value: originPlanet},
+        {Value: department_ID},
+        {Value: position_ID}
     ],
 
     // Object page sections
@@ -45,6 +53,52 @@ annotate service.Spacefarers with @(
         {Value: email},
         {Value: stardustCollection},
         {Value: wormholeNavigationSkill},
-        {Value: spacesuitColor}
+        {Value: spacesuitColor},
+        {Value: department_ID},
+        {Value: position_ID}
     ]}
 );
+
+// Dropdowns for department and position, showing names instead of IDs
+annotate service.Spacefarers with {
+    department  @title: 'Department'  @Common: {
+        Text                    : department.name,
+        TextArrangement         : #TextOnly,
+        ValueListWithFixedValues: true,
+        ValueList               : {
+            CollectionPath: 'Departments',
+            Parameters    : [{
+                $Type            : 'Common.ValueListParameterInOut',
+                LocalDataProperty: department_ID,
+                ValueListProperty: 'ID'
+            }]
+        }
+    };
+    position    @title: 'Position'    @Common: {
+        Text                    : position.title,
+        TextArrangement         : #TextOnly,
+        ValueListWithFixedValues: true,
+        ValueList               : {
+            CollectionPath: 'Positions',
+            Parameters    : [{
+                $Type            : 'Common.ValueListParameterInOut',
+                LocalDataProperty: position_ID,
+                ValueListProperty: 'ID'
+            }]
+        }
+    };
+};
+
+annotate service.Departments with {
+    ID @Common: {
+        Text           : name,
+        TextArrangement: #TextOnly
+    }
+};
+
+annotate service.Positions with {
+    ID @Common: {
+        Text           : title,
+        TextArrangement: #TextOnly
+    }
+};

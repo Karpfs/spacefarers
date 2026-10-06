@@ -52,6 +52,16 @@ module.exports = class SpacefarerService extends cds.ApplicationService {
             }
         });
 
+        // Derive the stardust status (1 = low/red, 2 = medium/orange, 3 = high/green)
+        const setStardustCriticality = (results) => {
+            for (const s of Array.isArray(results) ? results : [results]) {
+                if (s?.stardustCollection == null) continue;
+                s.stardustCriticality = s.stardustCollection >= 100 ? 3 : s.stardustCollection >= 50 ? 2 : 1;
+            }
+        };
+        this.after('READ', Spacefarers, setStardustCriticality);
+        this.after('READ', Spacefarers.drafts, setStardustCriticality);
+
         return super.init();
     }
 };
