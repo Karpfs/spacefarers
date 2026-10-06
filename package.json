@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "devDependencies": {
     "@cap-js/sqlite": "^3.1.1",
-    "@sap/cds-dk": "^10.1.0"
+    "@sap/cds-dk": "^10.1.0",
+    "cds-plugin-ui5": "^0.17.0"
   },
   "cds": {
     "requires": {
@@ -27,6 +28,16 @@
     }
   },
   "dependencies": {
+    "@sap/cds": "^10.1.1",
     "nodemailer": "^10.0.15"
-  }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "scripts": {
+    "watch-spacefarers": "cds watch --open galactic.spacefarers/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "sapux": [
+    "app/spacefarers"
+  ]
 }
